@@ -1,0 +1,404 @@
+/* 引入变量文件 */
+@use "./assets/styles/variables.scss" as *;
+@use "sass:color";
+
+/* 全局样式变量 - 使用CSS变量以便在组件中直接使用 */
+:root {
+  --primary-color: #{$color-primary};
+  --secondary-color: #{$color-secondary};
+  --success-color: #{$color-secondary};
+  --warning-color: #ffa502;
+  --error-color: #{$color-danger};
+  --text-primary: #{$color-text-primary};
+  --text-secondary: #{$color-text-secondary};
+  --text-light: #{$color-text-light};
+  --bg-primary: #{$color-white};
+  --bg-secondary: #{$color-background};
+  --bg-tertiary: #f8f8f8;
+  --border-color: #{$color-border};
+  --shadow-light: #{$shadow-card};
+  --shadow-medium: #{$shadow-button};
+  --border-radius: #{$border-radius-medium};
+  --border-radius-small: #{$border-radius-small};
+  --border-radius-large: #{$border-radius-large};
+}
+
+/* 全局基础样式 */
+page {
+  background-color: var(--bg-secondary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* 通用样式类 */
+.container {
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+.section {
+  background-color: var(--bg-primary);
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  display: block;
+  position: relative;
+  padding-left: 16px;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 15px 30px;
+  font-size: 28px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:active {
+  background-color: color.scale($color-primary, $lightness: -10%);
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-small);
+  padding: 15px 30px;
+  font-size: 28px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:active {
+  background-color: #e8e8e8;
+}
+
+.input-field {
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-small);
+  font-size: 28px;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.textarea-field {
+  width: 100%;
+  min-height: 120px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-small);
+  font-size: 28px;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  resize: none;
+  transition: border-color 0.3s ease;
+}
+
+.textarea-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.card {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-medium);
+}
+
+.tag {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.tag-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.tag-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.tag-active {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 750px) {
+  .section-title {
+    font-size: 28px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    font-size: 24px;
+    padding: 12px 24px;
+  }
+  
+  .input-field,
+  .textarea-field {
+    font-size: 24px;
+  }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+/* 新增温馨明亮风格的组件样式 */
+.welcome-banner {
+  background: $gradient-primary;
+  border-radius: $border-radius-large;
+  padding: $spacing-medium;
+  color: $color-white;
+  margin-bottom: $spacing-medium;
+  box-shadow: $shadow-button;
+  
+  .welcome-title {
+    font-size: $font-size-large;
+    font-weight: bold;
+    margin-bottom: $spacing-tiny;
+  }
+  
+  .welcome-desc {
+    font-size: $font-size-normal;
+    opacity: 0.9;
+  }
+}
+
+.search-bar {
+  background-color: $color-white;
+  border-radius: $border-radius-medium;
+  display: flex;
+  align-items: center;
+  padding: $spacing-small $spacing-medium;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-medium;
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    font-size: $font-size-normal;
+    color: $color-text-primary;
+  }
+  
+  .search-btn {
+    background-color: $color-primary;
+    color: $color-white;
+    border-radius: $border-radius-small;
+    padding: 6px 12px;
+    font-size: $font-size-normal;
+    font-weight: 500;
+  }
+}
+
+.quick-actions {
+  margin-bottom: $spacing-large;
+  
+  .actions-scroll {
+    white-space: nowrap;
+  }
+  
+  .action-item {
+    display: inline-block;
+    margin-right: $spacing-medium;
+    text-align: center;
+    
+    .action-icon-bg {
+      width: 56px;
+      height: 56px;
+      border-radius: $border-radius-medium;
+      background-color: $color-white;
+      @include flex-center;
+      margin-bottom: $spacing-tiny;
+      box-shadow: $shadow-card;
+    }
+    
+    .action-icon {
+      font-size: 24px;
+    }
+    
+    .action-title {
+      font-size: $font-size-small;
+      color: $color-text-primary;
+    }
+  }
+}
+
+.recipe-section {
+  background-color: $color-white;
+  border-radius: $border-radius-large;
+  padding: $spacing-medium;
+  box-shadow: $shadow-card;
+  
+  .tab-header {
+    display: flex;
+    margin-bottom: $spacing-medium;
+    border-bottom: 1px solid $color-divider;
+    padding-bottom: $spacing-small;
+  }
+  
+  .tab-item {
+    margin-right: $spacing-large;
+    padding-bottom: $spacing-tiny;
+    font-size: $font-size-subtitle;
+    color: $color-text-secondary;
+    
+    &.active {
+      color: $color-primary;
+      font-weight: 500;
+      border-bottom: 2px solid $color-primary;
+    }
+  }
+}
+
+.recipe-card {
+  background-color: $color-white;
+  border-radius: $border-radius-medium;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-medium;
+  
+  .recipe-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  
+  .recipe-content {
+    padding: $spacing-small;
+  }
+  
+  .recipe-title {
+    font-size: $font-size-normal;
+    font-weight: 500;
+    color: $color-text-primary;
+    margin-bottom: 6px;
+    @include multi-ellipsis(1);
+  }
+  
+  .recipe-meta {
+    display: flex;
+    font-size: $font-size-small;
+    color: $color-text-light;
+    margin-bottom: $spacing-tiny;
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    margin-right: $spacing-small;
+  }
+  
+  .meta-icon {
+    margin-right: 4px;
+    font-size: $font-size-small;
+  }
+  
+  .recipe-author {
+    display: flex;
+    align-items: center;
+  }
+  
+  .author-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  
+  .author-name {
+    font-size: $font-size-small;
+    color: $color-text-secondary;
+  }
+}

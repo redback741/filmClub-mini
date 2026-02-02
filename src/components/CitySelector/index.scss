@@ -1,0 +1,118 @@
+@use "../../assets/styles/variables.scss" as *;
+
+.city-selector {
+  position: relative;
+  z-index: 200; // 确保在导航栏之上
+
+  .selector-trigger {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 8rpx 20rpx;
+    border-radius: 32rpx;
+    font-size: $font-size-normal;
+    font-weight: bold;
+    color: $color-text-primary;
+    transition: background-color 0.2s;
+
+    &:active {
+      background-color: #e0e0e0;
+    }
+
+    .current-city {
+      margin-right: 8rpx;
+    }
+
+    .arrow {
+      font-size: 20rpx;
+      color: $color-secondary;
+      transition: transform 0.3s;
+
+      &.up {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .selector-dropdown-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw; // 宽度设为视口宽度，以便遮罩能覆盖全屏（需配合 fixed 定位）
+    height: 100vh;
+    // 注意：这里用 absolute 定位在父元素下，如果父元素 overflow hidden 可能会被遮挡
+    // 更好的方式可能是用 Taro 的 RootPortal 或者将 dropdown 放在更高层级
+    // 但作为简单组件，我们尝试用 absolute + z-index
+    
+    // 修正：为了做点击外部关闭，通常需要一个 fixed 的遮罩层
+  }
+
+  .dropdown-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent; // 透明遮罩，仅用于捕获点击
+    z-index: 201;
+  }
+
+  .dropdown-list {
+    position: absolute;
+    top: 12rpx; // 距离触发器底部的间距
+    left: 0;
+    width: 240rpx;
+    max-height: 400rpx;
+    background-color: $color-white;
+    border-radius: $border-radius-medium;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.15);
+    z-index: 202; // 在遮罩之上
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-out;
+
+    .city-scroll {
+      max-height: 400rpx;
+    }
+
+    .city-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20rpx 30rpx;
+      font-size: $font-size-normal;
+      color: $color-text-primary;
+      border-bottom: 1rpx solid $color-divider;
+      transition: background-color 0.2s;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:active {
+        background-color: $color-bg-secondary;
+      }
+
+      &.active {
+        color: $color-primary;
+        font-weight: bold;
+        background-color: rgba($color-primary, 0.05);
+      }
+
+      .check-mark {
+        color: $color-primary;
+        font-size: 24rpx;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

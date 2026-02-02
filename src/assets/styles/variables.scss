@@ -1,0 +1,96 @@
+@use "sass:color";
+// 颜色系统
+$color-primary: #FF9E4D; // 温暖的橙色作为主色调
+$color-secondary: #7AC279; // 柔和的绿色作为辅助色
+$color-danger: #FF6B6B; // 错误/警告色
+$color-info: #4DACFF; // 信息色
+$color-background: #FFF9F2; // 温馨的米白色背景
+$color-white: #FFFFFF;
+$color-text-primary: #333333; // 主要文字颜色
+$color-text-secondary: #666666; // 次要文字颜色
+$color-text-light: #999999; // 提示文字颜色
+$color-border: #EEEEEE; // 边框颜色
+$color-divider: #F5F5F5; // 分割线颜色
+$color-bg-secondary: #F9F9F9; // 次背景颜色
+$color-bg-primary: #FFFFFF; // 主要背景颜色
+$color-shadow-light: 0 4rpx 16rpx rgba(0, 0, 0, 0.05); // 卡片阴影
+$color-bg-tertiary: #F5F5F5; // 次背景颜色
+
+// 字体大小
+$font-size-large: 40rpx; // 大标题
+$font-size-title: 38rpx; // 标题
+$font-size-subtitle: 32rpx; // 副标题
+$font-size-normal: 30rpx; // 正文
+$font-size-small: 26rpx; // 小字体
+
+// 圆角
+$border-radius-large: 32rpx; // 大圆角（卡片等）
+$border-radius-medium: 24rpx; // 中圆角（按钮等）
+$border-radius-small: 16rpx; // 小圆角（输入框等）
+$border-radius-circle: 50%; // 圆形
+
+// 阴影
+$shadow-card: 0 4rpx 16rpx rgba(0, 0, 0, 0.05); // 卡片阴影
+$shadow-button: 0 8rpx 24rpx rgba(255, 158, 77, 0.2); // 按钮阴影
+$shadow-header: 0 4rpx 20rpx rgba(0, 0, 0, 0.05); // 顶部阴影
+$shadow-footer: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05); // 底部阴影
+
+// 间距
+$spacing-large: 48rpx; // 大间距
+$spacing-medium: 32rpx; // 中间距
+$spacing-small: 24rpx; // 小间距
+$spacing-tiny: 16rpx; // 极小间距
+
+// 过渡效果
+$transition-normal: all 0.3s ease;
+
+// 混合器
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin multi-ellipsis($lines) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
+
+// 渐变
+$gradient-primary: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -10%) 100%);
+$gradient-secondary: linear-gradient(135deg, $color-secondary 0%, color.scale($color-secondary, $lightness: -10%) 100%);
+
+// 动画
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+view, scroll-view, input, textarea {
+  box-sizing: border-box;
+}

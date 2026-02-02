@@ -1,5 +1,109 @@
-.index {
-  text {
-    color: #990000;
+@use "../../assets/styles/variables.scss" as *;
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #7F9BFF 0%, #835BF9 100%);
+  padding: 100rpx 48rpx 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 80rpx;
+  text-align: center;
+  color: #ffffff;
+
+  &-title {
+    font-size: 64rpx;
+    font-weight: bold;
+    margin-bottom: 24rpx;
+    letter-spacing: 4rpx;
+  }
+
+  &-subtitle {
+    font-size: 28rpx;
+    opacity: 0.8;
+    font-weight: 300;
+    letter-spacing: 2rpx;
+  }
+}
+
+.card-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &-large {
+    padding: 64rpx;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &-small {
+    flex: 1;
+    padding: 48rpx 32rpx;
+    box-sizing: border-box;
+  }
+
+  &-row {
+    display: flex;
+    gap: 32rpx;
+    width: 100%;
+  }
+
+  // 图标样式
+  &-icon {
+    font-size: 80rpx;
+    margin-bottom: 32rpx;
+    
+    &-small {
+      font-size: 64rpx;
+      margin-bottom: 24rpx;
+    }
+  }
+
+  // 标题样式
+  &-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 8rpx;
+
+    &-small {
+      font-size: 32rpx;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 8rpx;
+    }
+  }
+
+  // 描述文本样式
+  &-desc {
+    font-size: 24rpx;
+    color: #999999;
+
+    &-small {
+      font-size: 20rpx;
+      color: #999999;
+      text-align: center;
+      line-height: 1.4;
+    }
   }
 }
