@@ -28,8 +28,7 @@ export default function CitySelector({ value = '北京', onChange }) {
   const handleSelect = (city, e) => {
     e.stopPropagation()
     if (onChange) {
-      // 保持向上传递 name 以维持 Home 组件兼容性
-      // 如果需要传递 value，可以改为 onChange(city.value) 或 onChange(city)
+      console.log('选择的城市:', city)
       onChange(city.name)
     }
     setVisible(false)
