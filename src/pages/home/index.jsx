@@ -2,8 +2,9 @@ import { View, Text, Image } from '@tarojs/components'
 import { useState } from 'react'
 import CitySelector from '../../components/CitySelector'
 import './index.scss'
+import { withLoginModal } from '../../components/withLoginModal'
 
-export default function Home() {
+function Home() {
   const [currentCity, setCurrentCity] = useState('北京')
   
   const [movies] = useState([
@@ -97,3 +98,5 @@ export default function Home() {
     </View>
   )
 }
+
+export default withLoginModal(Home)

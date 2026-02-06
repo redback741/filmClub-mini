@@ -1,99 +1,73 @@
 @use "../../assets/styles/variables.scss" as *;
 
-.mine {
+.mine-page {
   min-height: 100vh;
   background-color: #f5f5f5;
   padding: $spacing-medium;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .user-card {
   display: flex;
   align-items: center;
   background-color: $color-white;
-  padding: 40rpx $spacing-medium;
+  padding: 32rpx $spacing-medium;
   border-radius: $border-radius-large;
   box-shadow: $shadow-card;
   margin-bottom: $spacing-medium;
-
-  .user-avatar {
-    width: 120rpx;
-    height: 120rpx;
-    border-radius: $border-radius-circle;
-    background-color: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: $spacing-medium;
-    overflow: hidden;
-    
-    // Placeholder text style if no image
-    color: $color-text-secondary;
-    font-size: $font-size-small;
-    font-weight: bold;
-  }
-
-  .user-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .user-name {
-      font-size: 36rpx;
-      font-weight: bold;
-      color: $color-text-primary;
-      margin-bottom: 8rpx;
-    }
-
-    .user-phone {
-      font-size: $font-size-small;
-      color: $color-text-secondary;
-    }
-  }
+  gap: $spacing-medium;
 }
 
-.order-card {
-  @include flex-between;
-  background-color: $color-white;
-  padding: $spacing-medium;
-  border-radius: $border-radius-medium;
-  box-shadow: $shadow-card;
-  margin-bottom: $spacing-medium;
-  transition: $transition-normal;
-
-  &:active {
-    background-color: $color-bg-secondary;
-  }
-
-  .order-title {
-    font-size: $font-size-normal;
-    color: $color-text-primary;
-    font-weight: 500;
-  }
-
-  .order-count {
-    font-size: 40rpx;
-    font-weight: bold;
-    color: $color-primary;
-  }
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $border-radius-circle;
+  background-color: #eee;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.logout-card {
-  @include flex-center;
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nickname {
+  font-size: $font-size-title;
+  font-weight: bold;
+  color: $color-text-primary;
+}
+
+.uid {
+  margin-top: 6rpx;
+  font-size: $font-size-small;
+  color: $color-text-secondary;
+}
+
+.menu-list {
+  margin-top: $spacing-medium;
   background-color: $color-white;
-  padding: $spacing-medium;
   border-radius: $border-radius-medium;
   box-shadow: $shadow-card;
-  margin-top: 60rpx; // Separate from content
-  transition: $transition-normal;
+  overflow: hidden;
+}
 
-  &:active {
-    background-color: $color-bg-secondary;
-  }
+.menu-item {
+  padding: $spacing-medium;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: $font-size-normal;
+  color: $color-text-primary;
+  border-bottom: 1rpx solid $color-divider;
+}
 
-  .logout-title {
-    font-size: $font-size-normal;
-    color: $color-danger; // Use danger color for logout
-    font-weight: 500;
-  }
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background-color: $color-bg-secondary;
 }

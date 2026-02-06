@@ -1,11 +1,16 @@
 import Taro, { useLoad } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
+import { withLoginModal } from '../../components/withLoginModal'
 
-export default function Index() {
+import { useUser } from '../../context/UserContext'
+
+function Index() {
   useLoad(() => {
     console.log('Page loaded.')
   })
+
+  const { showLoginModal, userInfo } = useUser()
 
   const handleNavigate = (url) => {
     if (url) {
@@ -22,6 +27,9 @@ export default function Index() {
 
   return (
     <View className='page-container'>
+      {/* 可以在这里添加一些只有登录用户才能看到的欢迎语 */}
+      {userInfo && <View className='welcome-tips'>欢迎回来, {userInfo.nickName}</View>}
+
       {/* 头部标题 */}
       <View className='header'>
         <View className='header-title'>观影团</View>
@@ -76,3 +84,5 @@ export default function Index() {
     </View>
   )
 }
+
+export default withLoginModal(Index)

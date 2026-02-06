@@ -3,8 +3,9 @@ import { View, Text } from '@tarojs/components'
 import { useState } from 'react'
 import CitySelector from '../../components/CitySelector'
 import CalendarSelector from '../../components/CalendarSelector'
+import { withLoginModal } from '../../components/withLoginModal'
 
-export default function List() {
+function List() {
   const [city, setCity] = useState('成都')
   const [currentDate, setCurrentDate] = useState(new Date()) // 当前选中日期
 
@@ -77,3 +78,5 @@ export default function List() {
     </View>
   )
 }
+
+export default withLoginModal(List)
