@@ -1,0 +1,118 @@
+@use "../../assets/styles/variables.scss" as *;
+
+.activity-detail {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: $spacing-large;
+  color: $color-text-primary;
+}
+
+.detail-card {
+  display: flex;
+  background-color: $color-white;
+  border-radius: $border-radius-large;
+  box-shadow: $shadow-card;
+  padding: $spacing-large;
+}
+
+.poster {
+  width: 200rpx;
+  height: 290rpx;
+  border-radius: $border-radius-medium;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  box-shadow: 0 6rpx 18rpx rgba(0,0,0,0.08);
+}
+
+.poster-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-secondary;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 8rpx;
+}
+
+.meta {
+  flex: 1;
+  margin-left: $spacing-large;
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 160rpx;
+  color: $color-text-secondary;
+}
+
+.value {
+  flex: 1;
+  line-height: 1.6;
+}
+
+.score-row .score {
+  color: $color-secondary;
+  font-weight: bold;
+  margin-right: 16rpx;
+  font-size: 34rpx;
+}
+
+.score-row .count {
+  color: $color-text-secondary;
+}
+
+.schedule {
+  margin-top: $spacing-large;
+  background-color: $color-white;
+  border-radius: $border-radius-large;
+  box-shadow: $shadow-card;
+  padding: $spacing-large;
+  text-align: center;
+}
+
+.time {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.cinema {
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: $color-text-secondary;
+}
+
+.notice {
+  margin-top: 20rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.btn-enroll {
+  margin-top: $spacing-large;
+  padding: 16rpx 0;
+  background-color: $color-secondary;
+  color: $color-white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: $border-radius-medium;
+  text-align: center;
+}

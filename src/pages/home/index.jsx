@@ -87,7 +87,7 @@ export default function Home() {
 
             {/* 操作按钮 */}
             <View className='movie-action'>
-              <View className='btn-action'>
+              <View className='btn-action' onClick={() => Taro.navigateTo({ url: '/pages/activity/detail?id=' + movie.id })}>
                 <Text>查看活动</Text>
               </View>
             </View>

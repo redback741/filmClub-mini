@@ -54,7 +54,7 @@ export default function Index() {
           {/* 卡片 2: 活动列表 */}
           <View 
             className='card card-small'
-            onClick={() => handleNavigate('')}
+            onClick={() => handleSwitchTab('/pages/list/index')}
           >
             <Text className='card-icon-small'>📋</Text>
             <Text className='card-title-small'>活动列表</Text>

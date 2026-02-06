@@ -1,7 +1,17 @@
 import { View, Text } from '@tarojs/components'
 import './index.scss'
+import { useEffect } from 'react'
 
 export default function Mine () {
+  const [userInfo, setUserInfo] = useState(null)
+
+  useEffect(() => {
+    const userInfo = Taro.getStorageSync('userInfo')
+    if (userInfo) {
+      setUserInfo(userInfo)
+    }
+  }, [])
+
   return (
     <View className='mine'>
       {/* 个人信息卡片 */}

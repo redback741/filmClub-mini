@@ -3,6 +3,8 @@ import { View, Text } from '@tarojs/components'
 import { useState } from 'react'
 import CitySelector from '../../components/CitySelector'
 import CalendarSelector from '../../components/CalendarSelector'
+import Taro from '@tarojs/taro'
+
 
 export default function List() {
   const [city, setCity] = useState('成都')
@@ -67,7 +69,7 @@ export default function List() {
             <View className='event-meta'>
               <Text className='group'>{e.group}</Text>
               <Text className='datetime'>{e.datetime}</Text>
-              <View className='btn-detail'>
+              <View className='btn-detail' onClick={() => Taro.navigateTo({ url: '/pages/activity/detail?id=' + e.id })}>
                 <Text>查看详情</Text>
               </View>
             </View>
