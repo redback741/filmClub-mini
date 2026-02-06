@@ -1,4 +1,4 @@
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import { useUser } from '../../context/UserContext'
 import { withLoginModal } from '../../components/withLoginModal'
@@ -6,7 +6,7 @@ import './index.scss'
 import avatar from '../../assets/icons/user_full.png'
 
 function Mine() {
-  const { userInfo, logout, showLoginModal } = useUser()
+  const { userInfo, logout, showLoginModal, login, updateAvatar } = useUser()
 
   useLoad(() => {
     console.log('Mine page loaded')
@@ -18,14 +18,34 @@ function Mine() {
     }
   }
 
+  const onChooseAvatar = (e) => {
+    const url = e.detail && e.detail.avatarUrl
+    if (!url) return
+    if (userInfo) {
+      updateAvatar(url)
+    } else {
+      login({ avatarUrl: url, nickName: '微信用户' })
+    }
+  }
+
   return (
     <View className='mine-page'>
       <View className='user-card' onClick={handleLogin}>
-        <Image 
-          className='avatar' 
-          src={userInfo ? userInfo.avatarUrl : avatar} 
-          mode='aspectFill' 
-        />
+        <View className='avatar-box'>
+          <Image 
+            className='avatar' 
+            src={userInfo ? userInfo.avatarUrl : avatar} 
+            mode='aspectFill' 
+          />
+          {userInfo && (
+            <Button 
+              className='avatar-btn-overlay' 
+              openType='chooseAvatar' 
+              onChooseAvatar={onChooseAvatar}
+              onClick={(e) => { e.stopPropagation() }}
+            />
+          )}
+        </View>
         <View className='info'>
           <Text className='nickname'>
             {userInfo ? userInfo.nickName : '点击登录'}

@@ -81,7 +81,31 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setUserInfo(null)
     Taro.removeStorageSync('userInfo')
-    setLoginModalVisible(true)
+    setLoginModalVisible(false)
+  }
+
+  const updateAvatar = async (avatarUrl) => {
+    if (!userInfo) {
+      setLoginModalVisible(true)
+      return
+    }
+    try {
+      const newInfo = {
+        ...userInfo,
+        avatarUrl,
+        lastLoginTime: new Date().toISOString()
+      }
+      const saveRes = await callFunction('saveUser', newInfo)
+      if (!saveRes.success) {
+        console.warn('用户头像云端更新失败', saveRes.error)
+      }
+      setUserInfo(newInfo)
+      Taro.setStorageSync('userInfo', newInfo)
+      Taro.showToast({ title: '头像已更新', icon: 'success' })
+    } catch (e) {
+      console.error('更新头像失败', e)
+      Taro.showToast({ title: '头像更新失败', icon: 'none' })
+    }
   }
 
   const showLoginModal = () => {
@@ -102,7 +126,8 @@ export const UserProvider = ({ children }) => {
       logout, 
       isLoginModalVisible, 
       showLoginModal, 
-      hideLoginModal 
+      hideLoginModal,
+      updateAvatar 
     }}>
       {children}
     </UserContext.Provider>

@@ -27,6 +27,27 @@
   flex-shrink: 0;
 }
 
+.avatar-box {
+  position: relative;
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.avatar-btn-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120rpx;
+  height: 120rpx;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.avatar-btn-overlay::after {
+  border: none;
+}
+
 .info {
   flex: 1;
   display: flex;
