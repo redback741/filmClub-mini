@@ -85,12 +85,12 @@ const errorInterceptor = (error) => {
 }
 
 // 请求拦截器
-const request = async (url, method = 'GET', params) => {
+const request = async (params) => {
   const token = Taro.getStorageSync('token')
   
   const defaultOptions = {
-    url: process.env.TARO_APP_BASE_URL + url,
-    method: method.toUpperCase(), // 确保请求方法为大写
+    url: process.env.TARO_APP_BASE_URL + params.url,
+    method: params.method.toUpperCase(), // 确保请求方法为大写
     header: {
       'Content-Type': 'application/json',
       ...(token && { 'Authorization': `Bearer ${token}` })
@@ -99,15 +99,15 @@ const request = async (url, method = 'GET', params) => {
   }
 
   // 根据请求方法处理参数
-  if (params) {
-    const upperMethod = method.toUpperCase()
+  if (params.params) {
+    const upperMethod = params.method.toUpperCase()
     
     if (upperMethod === 'GET' || upperMethod === 'DELETE') {
       // GET 和 DELETE 请求：参数拼接到 URL 上
-      if (typeof params === 'object' && params !== null) {
-        const queryString = Object.keys(params)
-          .filter(key => params[key] !== undefined && params[key] !== null && params[key] !== '')
-          .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      if (typeof params.params === 'object' && params.params !== null) {
+        const queryString = Object.keys(params.params)
+          .filter(key => params.params[key] !== undefined && params.params[key] !== null && params.params[key] !== '')
+          .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params.params[key])}`)
           .join('&')
         
         if (queryString) {
@@ -116,7 +116,7 @@ const request = async (url, method = 'GET', params) => {
       }
     } else if (upperMethod === 'POST' || upperMethod === 'PUT' || upperMethod === 'PATCH') {
       // POST、PUT、PATCH 请求：参数放在请求体中
-      defaultOptions.data = params
+      defaultOptions.data = params.params 
     }
   }
 

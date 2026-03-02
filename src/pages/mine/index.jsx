@@ -1,6 +1,8 @@
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Taro from '@tarojs/taro'
+import { wxLogin } from '@/api'
 
 export default function Mine () {
   const [userInfo, setUserInfo] = useState(null)
@@ -12,17 +14,49 @@ export default function Mine () {
     }
   }, [])
 
+  const handleLogin = async () => {
+    const res = await Taro.login()
+    if (res.code) {
+      // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      console.log(res.code)
+      return
+      const loginRes = await wxLogin(res.code)
+      if (loginRes.code === 200) {
+        Taro.setStorageSync('userInfo', loginRes.data)
+        setUserInfo(loginRes.data)
+      } else {
+        console.log('登录失败！' + loginRes.msg)
+      }
+
+    } else {
+      console.log('登录失败！' + res.errMsg)
+    }
+  }
+
+  const handleLoginOut = () => {
+    Taro.removeStorageSync('userInfo')
+    setUserInfo(null)
+  }
+
   return (
     <View className='mine'>
       {/* 个人信息卡片 */}
-      <View className='user-card'>
+      <View className='user-card' onClick={handleLogin}>
         <View className='user-avatar'>
           <Text>用户头像</Text>
         </View>
-        <View className='user-info'>
-          <Text className='user-name'>用户姓名</Text>
-          <Text className='user-phone'>13800000000</Text>
-        </View>
+        {
+          userInfo ? (
+            <View className='user-info'>
+              <Text className='user-name'>{userInfo.nickName}</Text>
+              <Text className='user-phone'>{userInfo.phoneNumber}</Text>
+            </View>
+          ) : (
+            <View className='user-info'>
+              <Text className='user-name'>请先登录</Text>
+            </View>
+          )
+        }
       </View>
 
       {/* 我的报名 */}
@@ -32,7 +66,7 @@ export default function Mine () {
       </View>
 
       {/* 退出登录 */}
-      <View className='logout-card'>
+      <View className='logout-card' onClick={handleLoginOut}>
         <Text className='logout-title'>退出登录</Text>
       </View>
     </View>

@@ -5,6 +5,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/mine/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/activity/detail",
           "query": "",
           "launchMode": "default",
@@ -12,5 +19,8 @@
         }
       ]
     }
+  },
+  "setting": {
+    "urlCheck": false
   }
 }
