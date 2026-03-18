@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import { userStorage } from './storage'
 
 // 响应数据拦截器
 const responseInterceptor = (response) => {
@@ -86,7 +87,7 @@ const errorInterceptor = (error) => {
 
 // 请求拦截器
 const request = async (params) => {
-  const token = Taro.getStorageSync('token')
+  const token = userStorage.getToken()
   
   const defaultOptions = {
     url: process.env.TARO_APP_BASE_URL + params.url,

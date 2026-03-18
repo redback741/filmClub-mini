@@ -1,29 +1,24 @@
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import { useEffect, useState } from 'react'
 import Taro from '@tarojs/taro'
-import { wxLogin } from '@/api'
+import { wxLogin } from '@/api/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUserInfo, clearUserInfo, selectUserInfo } from '@/store/slices/userSlice'
 
 export default function Mine () {
-  const [userInfo, setUserInfo] = useState(null)
-
-  useEffect(() => {
-    const userInfo = Taro.getStorageSync('userInfo')
-    if (userInfo) {
-      setUserInfo(userInfo)
-    }
-  }, [])
+  const userInfo = useSelector(selectUserInfo)
+  const dispatch = useDispatch()
 
   const handleLogin = async () => {
     const res = await Taro.login()
     if (res.code) {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
       console.log(res.code)
-      return
-      const loginRes = await wxLogin(res.code)
+      
+      const loginRes = await wxLogin({ code: res.code })
       if (loginRes.code === 200) {
-        Taro.setStorageSync('userInfo', loginRes.data)
-        setUserInfo(loginRes.data)
+        // 更新 Redux 状态 (Slice 内部会自动更新 Storage)
+        dispatch(setUserInfo(loginRes.data))
       } else {
         console.log('登录失败！' + loginRes.msg)
       }
@@ -34,8 +29,8 @@ export default function Mine () {
   }
 
   const handleLoginOut = () => {
-    Taro.removeStorageSync('userInfo')
-    setUserInfo(null)
+    // 清除 Redux 状态 (Slice 内部会自动清除 Storage)
+    dispatch(clearUserInfo())
   }
 
   return (
