@@ -2,12 +2,11 @@ import { View, Text } from '@tarojs/components'
 import './index.scss'
 import Taro from '@tarojs/taro'
 import { wxLogin } from '@/api/user'
-import { useDispatch, useSelector } from 'react-redux'
-import { setUserInfo, clearUserInfo, selectUserInfo } from '@/store/slices/userSlice'
+import { clearUserInfo, setUserInfo, useStore, useUserInfo } from '@/store'
 
 export default function Mine () {
-  const userInfo = useSelector(selectUserInfo)
-  const dispatch = useDispatch()
+  const userInfo = useUserInfo()
+  const { dispatch } = useStore()
 
   const handleLogin = async () => {
     const res = await Taro.login()
@@ -16,7 +15,7 @@ export default function Mine () {
       console.log(res.code)
       
       const loginRes = await wxLogin({ code: res.code })
-      if (loginRes.code === 200) {
+      if (loginRes.code === 200 || loginRes.code === 201) {
         // 更新 Redux 状态 (Slice 内部会自动更新 Storage)
         dispatch(setUserInfo(loginRes.data))
       } else {

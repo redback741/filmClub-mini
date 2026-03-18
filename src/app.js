@@ -1,7 +1,6 @@
 
 import { useLaunch } from '@tarojs/taro'
-import { Provider } from 'react-redux'
-import store from './store'
+import { StoreProvider } from './store'
 
 import './app.scss'
 
@@ -12,9 +11,9 @@ function App({ children }) {
 
   // children 是将要会渲染的页面
   return (
-    <Provider store={store}>
+    <StoreProvider>
       {children}
-    </Provider>
+    </StoreProvider>
   )
 }
   

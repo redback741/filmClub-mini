@@ -5,6 +5,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/activity/detail",
+          "query": "id=5",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/mine/index",
           "query": "",
           "launchMode": "default",

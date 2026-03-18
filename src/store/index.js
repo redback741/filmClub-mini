@@ -1,16 +1,54 @@
-import { configureStore } from '@reduxjs/toolkit'
-import userReducer from './slices/userSlice'
+import { createContext, useContext, useMemo, useReducer } from 'react'
+import { userStorage } from '@/utils/storage'
 
-// 创建 Store
-const store = configureStore({
-  reducer: {
-    // 注册模块，类似于 Vuex 的 modules
-    user: userReducer
-  },
-  // 可以在这里配置中间件，如 redux-logger 等
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false // 关闭序列化检查，防止 Taro 对象报错
-  })
-})
+const initialState = {
+  userInfo: userStorage.getUserInfo() || null
+}
 
-export default store
+function reducer(state, action) {
+  switch (action.type) {
+    case 'user/setUserInfo': {
+      userStorage.setUserInfo(action.payload)
+      return { ...state, userInfo: action.payload }
+    }
+    case 'user/clearUserInfo': {
+      userStorage.removeUserInfo()
+      return { ...state, userInfo: null }
+    }
+    default:
+      return state
+  }
+}
+
+const StoreContext = createContext(null)
+
+export function StoreProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  const value = useMemo(() => ({ state, dispatch }), [state])
+
+  return (
+    <StoreContext.Provider value={value}>
+      {children}
+    </StoreContext.Provider>
+  )
+}
+
+export function useStore() {
+  const ctx = useContext(StoreContext)
+  if (!ctx) return { state: initialState, dispatch: () => {} }
+  return ctx
+}
+
+export function useUserInfo() {
+  const { state } = useStore()
+  return state.userInfo
+}
+
+export function setUserInfo(userInfo) {
+  return { type: 'user/setUserInfo', payload: userInfo }
+}
+
+export function clearUserInfo() {
+  return { type: 'user/clearUserInfo' }
+}

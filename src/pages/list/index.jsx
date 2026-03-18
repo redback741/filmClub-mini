@@ -3,52 +3,55 @@ import { View, Text } from '@tarojs/components'
 import { useState } from 'react'
 import CitySelector from '../../components/CitySelector'
 import CalendarSelector from '../../components/CalendarSelector'
-import Taro from '@tarojs/taro'
+import Taro, { useLoad } from '@tarojs/taro'
+import { listActivities } from '@/api/activity'
 
 
 export default function List() {
   const [city, setCity] = useState('成都')
-  const [currentDate, setCurrentDate] = useState(new Date()) // 当前选中日期
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [events, setEvents] = useState([])
 
-  const events = [
-    {
-      id: 1,
-      title: '闪灵',
-      cinema: '万象影城(万象城店)',
-      tags: ['IMAX激光', 'IMAX海报'],
-      group: '守望者观影团',
-      datetime: '2026-02-07 14:00'
-    },
-    {
-      id: 2,
-      title: '爱乐之城',
-      cinema: '万达影城(金牛店)',
-      tags: ['IMAX激光'],
-      group: '克洛诺斯观影团',
-      datetime: '2026-02-07 14:00'
-    },
-    {
-      id: 3,
-      title: '爱乐之城',
-      cinema: '英皇电影城(IFS国金中心店)',
-      tags: ['IMAX激光'],
-      group: 'IMAX Squad 成都影迷团',
-      datetime: '2026-02-07 14:10'
+  const fetchEvents = async (nextCity, nextDate) => {
+    try {
+      // 初始化传参 增加startTime 默认为当日时间 时间戳
+      const res = await listActivities({
+        city: nextCity,
+        startTime: nextDate.getTime()
+      })
+      if (res && res.success) {
+        setEvents(Array.isArray(res.data) ? res.data : [])
+      }
+    } catch (e) {
+      console.error(e)
     }
-  ]
+  }
+
+  useLoad(async () => {
+    await fetchEvents(city, currentDate)
+  })
 
   return (
     <View className='list-page'>
       <View className='list-header'>
         <View className='header-top'>
           <View className='header-left'>
-            <CitySelector value={city} onChange={setCity} />
+            <CitySelector
+              value={city}
+              onChange={async (nextCity) => {
+                setCity(nextCity)
+                await fetchEvents(nextCity, currentDate)
+              }}
+            />
           </View>
         </View>
         
         <CalendarSelector 
           value={currentDate} 
-          onChange={setCurrentDate} 
+          onChange={async (nextDate) => {
+            setCurrentDate(nextDate)
+            await fetchEvents(city, nextDate)
+          }} 
         />
       </View>
 
@@ -58,17 +61,17 @@ export default function List() {
         {events.map((e) => (
           <View key={e.id} className='event-card'>
             <View className='event-main'>
-              <Text className='event-title'>{e.title}</Text>
-              <Text className='event-cinema'>{e.cinema}</Text>
+              <Text className='event-title'>{e.title || e.name || e.movieName}</Text>
+              <Text className='event-cinema'>{e.cinema || e.address}</Text>
               <View className='tags'>
-                {e.tags.map((t) => (
+                {(Array.isArray(e.tags) ? e.tags : []).map((t) => (
                   <Text key={t} className={`tag ${t==='IMAX激光'?'blue':''} ${t==='IMAX海报'?'orange':''}`}>{t}</Text>
                 ))}
               </View>
             </View>
             <View className='event-meta'>
-              <Text className='group'>{e.group}</Text>
-              <Text className='datetime'>{e.datetime}</Text>
+              <Text className='group'>{e.group || e.recruiterName}</Text>
+              <Text className='datetime'>{e.datetime || e.startTime}</Text>
               <View className='btn-detail' onClick={() => Taro.navigateTo({ url: '/pages/activity/detail?id=' + e.id })}>
                 <Text>查看详情</Text>
               </View>

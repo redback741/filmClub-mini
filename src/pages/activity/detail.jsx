@@ -1,8 +1,31 @@
 import { View, Text } from '@tarojs/components'
 import './detail.scss'
-import Taro from '@tarojs/taro'
+import Taro, { useLoad } from '@tarojs/taro'
+import { getActivityDetail } from '@/api/activity'
+import { useState } from 'react'
+import { formatTimestamp } from '@/utils/date'
+
+
 
 export default function Detail() {
+  // 从路由参数获取活动ID
+  const { id } = Taro.getCurrentInstance().router?.params || {}
+
+
+  // 初始化
+  const [activity, setActivity] = useState({})
+
+  useLoad(async () => {
+    try {
+      const res = await getActivityDetail(id)
+      if (res && res.success) {
+        setActivity(res.data || {})
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  })
+
   // 设置页面标题
   Taro.setNavigationBarTitle({
     title: '活动详情'
@@ -16,31 +39,31 @@ export default function Detail() {
           </View>
         </View>
         <View className='meta'>
-          <Text className='title'>《地下》</Text>
+          <Text className='title'>《{activity.movieName}》</Text>
           <View className='row'>
             <Text className='label'>导演</Text>
-            <Text className='value'>埃米尔·库斯图里卡</Text>
+            <Text className='value'>{activity.director ? activity.director : '-'}</Text>
           </View>
           <View className='row'>
             <Text className='label'>拍摄时间</Text>
-            <Text className='value'>1995</Text>
+            <Text className='value'>{activity.shootingTime ? activity.shootingTime : '-'}</Text>
           </View>
           <View className='row'>
             <Text className='label'>地区</Text>
-            <Text className='value'>南斯拉夫,法国,德国,保加利亚,捷克,匈牙利,英国,美国</Text>
+            <Text className='value'>{activity.city}</Text>
           </View>
           <View className='row score-row'>
             <Text className='label'>豆瓣评分</Text>
             <View className='value'>
-              <Text className='score'>9.2</Text>
+              <Text className='score'>{activity.doubanRating ? activity.doubanRating : '-'}</Text>
             </View>
           </View>
         </View>
       </View>
 
       <View className='schedule'>
-        <Text className='time'>02月06日 19:00</Text>
-        <Text className='cinema'>小西天艺术影院 1号厅</Text>
+        <Text className='time'>{activity.startTime ? formatTimestamp(activity.startTime, 'yyyy-mm-dd') : '-'}</Text>
+        <Text className='cinema'>{activity.address ? activity.address : '-'}</Text>
       </View>
 
       {/* 报名按钮 */}

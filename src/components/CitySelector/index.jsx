@@ -29,7 +29,7 @@ export default function CitySelector({ value = '北京', onChange }) {
     e.stopPropagation()
     if (onChange) {
       console.log('选择的城市:', city)
-      onChange(city.name)
+      onChange(city.value)
     }
     setVisible(false)
   }
@@ -64,7 +64,7 @@ export default function CitySelector({ value = '北京', onChange }) {
                   onClick={(e) => handleSelect(city, e)}
                 >
                   <Text>{city.name}</Text>
-                  {value === city.name && <Text className='check-mark'>✓</Text>}
+                  {value === city.value && <Text className='check-mark'>✓</Text>}
                 </View>
               ))}
             </ScrollView>
