@@ -20,8 +20,18 @@ export default function Mine () {
         // 更新 Redux 状态 (Slice 内部会自动更新 Storage)
         dispatch(setUserInfo(loginRes.data))
         userStorage.setToken(loginRes.data.token)
+        Taro.showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 2000
+        })
       } else {
         console.log('登录失败！' + loginRes.msg)
+        Taro.showToast({
+          title: '登录失败！' + loginRes.msg,
+          icon: 'none',
+          duration: 2000
+        })
       }
 
     } else {
@@ -39,13 +49,19 @@ export default function Mine () {
       {/* 个人信息卡片 */}
       <View className='user-card' onClick={handleLogin}>
         <View className='user-avatar'>
-          <Text>用户头像</Text>
+          {
+            userInfo && userInfo.userInfo.avatarUrl ? (
+              <Image className='avatar' src={userInfo.userInfo.avatarUrl} />
+            ) : (
+              <Text>用户头像</Text>
+            )
+          }
         </View>
         {
           userInfo ? (
             <View className='user-info'>
-              <Text className='user-name'>{userInfo.nickName}</Text>
-              <Text className='user-phone'>{userInfo.phoneNumber}</Text>
+              <Text className='user-name'>{userInfo.userInfo.nickName}</Text>
+              <Text className='user-phone'>{userInfo.userInfo.phoneNumber}</Text>
             </View>
           ) : (
             <View className='user-info'>
@@ -56,15 +72,19 @@ export default function Mine () {
       </View>
 
       {/* 我的报名 */}
-      <View className='order-card'>
+      <View className='order-card' onClick={() => Taro.navigateTo({ url: '/pages/myActivity/index' })}>
         <Text className='order-title'>我的报名</Text>
-        <Text className='order-count'>100</Text>
+        {/* <Text className='order-count'>100</Text> */}
       </View>
 
       {/* 退出登录 */}
-      <View className='logout-card' onClick={handleLoginOut}>
-        <Text className='logout-title'>退出登录</Text>
-      </View>
+      {
+       userInfo && userInfo.userInfo ? (
+            <View className='logout-card' onClick={handleLoginOut}>
+              <Text className='logout-title'>退出登录</Text>
+            </View>
+          ) : null  
+      }
     </View>
   )
 }

@@ -80,3 +80,12 @@ export function registerActivity(id) {
     params: { id }
   })
 }
+
+// 报名活动列表（query: id）
+export function registerListActivity() {
+  return request({
+    url: '/activity/register-list',
+    method: 'GET',
+    params: {  }
+  })
+}
