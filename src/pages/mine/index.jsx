@@ -3,6 +3,7 @@ import './index.scss'
 import Taro from '@tarojs/taro'
 import { wxLogin } from '@/api/user'
 import { clearUserInfo, setUserInfo, useStore, useUserInfo } from '@/store'
+import { userStorage } from '@/utils/storage'
 
 export default function Mine () {
   const userInfo = useUserInfo()
@@ -18,6 +19,7 @@ export default function Mine () {
       if (loginRes.code === 200 || loginRes.code === 201) {
         // 更新 Redux 状态 (Slice 内部会自动更新 Storage)
         dispatch(setUserInfo(loginRes.data))
+        userStorage.setToken(loginRes.data.token)
       } else {
         console.log('登录失败！' + loginRes.msg)
       }

@@ -71,3 +71,12 @@ export async function getActivityDetail(id) {
   }
   return listRes
 }
+
+// 报名活动（query: id）
+export function registerActivity(id) {
+  return request({
+    url: '/activity/register',
+    method: 'POST',
+    params: { id }
+  })
+}

@@ -85,7 +85,6 @@
   border-radius: $border-radius-large;
   box-shadow: $shadow-card;
   padding: $spacing-large;
-  text-align: center;
 }
 
 .time {
@@ -115,4 +114,13 @@
   font-weight: bold;
   border-radius: $border-radius-medium;
   text-align: center;
+}
+
+.pr-20 {
+  padding-right: 20rpx;
+}
+
+.disabled {
+  background-color: $color-text-secondary;
+  cursor: not-allowed;
 }
