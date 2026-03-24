@@ -1,13 +1,13 @@
 import request from '@/utils/request'
 
 // 创建活动
-export function createActivity(params) {
-  return request({
-    url: '/activity/create',
-    method: 'POST',
-    params
-  })
-}
+// export function createActivity(params) {
+//   return request({
+//     url: '/activity/create',
+//     method: 'POST',
+//     params
+//   })
+// }
 
 // 活动列表
 export function listActivities(params = {}) {
@@ -87,5 +87,13 @@ export function registerListActivity() {
     url: '/activity/register-list',
     method: 'GET',
     params: {  }
+  })
+}
+
+export function listActivitiesByMovie(movieId, params = {}) {
+  return request({
+    url: '/activity/list-by-movie',
+    method: 'GET',
+    params: { movieId, ...params }
   })
 }

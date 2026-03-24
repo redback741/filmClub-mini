@@ -83,6 +83,16 @@
       margin-bottom: 8rpx;
     }
 
+    .movie-meta {
+      font-size: 24rpx;
+      color: $color-text-light;
+      margin-bottom: 8rpx;
+
+      .meta-item {
+        margin-right: 12rpx;
+      }
+    }
+
     .tags-row {
       display: flex;
       flex-wrap: wrap;

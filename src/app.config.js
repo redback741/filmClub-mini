@@ -5,7 +5,8 @@ export default defineAppConfig({
     'pages/list/index',
     'pages/mine/index',
     'pages/activity/detail',
-    'pages/myActivity/index'
+    'pages/myActivity/index',
+    'pages/activityByMovie/index'
   ],
   window: {
     backgroundTextStyle: 'light',

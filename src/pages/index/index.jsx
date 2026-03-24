@@ -34,7 +34,7 @@ export default function Index() {
         {/* 卡片 1: 浏览电影 */}
         <View 
           className='card card-large'
-          onClick={() => handleSwitchTab('/pages/list/index')}
+          onClick={() => handleSwitchTab('/pages/home/index')}
         >
           <Text className='card-icon'>🎬</Text>
           <Text className='card-title'>浏览电影</Text>
