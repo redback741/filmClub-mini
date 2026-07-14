@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { listActivitiesByMovie } from '@/api/activity'
 import { formatTimestamp } from '@/utils/date'
 import NullPage from '@/components/NullPage/index'
+import ActivityCard from '@/components/activityCard/index'
 import './index.scss'
 
 export default function ActivityByMovie() {
@@ -27,31 +28,18 @@ export default function ActivityByMovie() {
     await fetchActivities()
   })
 
+  const navigateToDetail = (id) => {
+    Taro.navigateTo({ url: '/pages/activity/detail?id=' + id })
+  }
+
   return (
     <View className='list-page'>
-      <View className='section-title'>活动列表</View>
+      {/* <View className='section-title'>活动列表</View> */}
 
       { events.length > 0 && 
         <View  className='event-list'>
         {events.map((e) => (
-          <View key={e.id} className='event-card'>
-            <View className='event-main'>
-              <Text className='event-title'>{e.title || e.name || e.movieName}</Text>
-              <Text className='event-cinema'>{e.cityName || ''}</Text>
-              <View className='tags'>
-                {(Array.isArray(e.tags) ? e.tags : []).map((t) => (
-                  <Text key={t} className={`tag ${t === 'IMAX激光' ? 'blue' : ''} ${t === 'IMAX海报' ? 'orange' : ''}`}>{t}</Text>
-                ))}
-              </View>
-            </View>
-            <View className='event-meta'>
-              <Text className='group'>{e.group || e.recruiterName}</Text>
-              <Text className='datetime'>{formatTimestamp(e.screeningTime)}</Text>
-              <View className='btn-detail' onClick={() => Taro.navigateTo({ url: '/pages/activity/detail?id=' + e.id })}>
-                <Text>查看详情</Text>
-              </View>
-            </View>
-          </View>
+          <ActivityCard key={e.id} e={e} navigateToDetail={navigateToDetail} />
         ))}
         </View>
       }

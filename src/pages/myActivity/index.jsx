@@ -3,13 +3,15 @@ import { View, Text } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { registerListActivity } from '@/api/activity'
+import './index.scss'
+import NullPage from '@/components/NullPage/index'
 
 export default function MyActivity() {
   const [events, setEvents] = useState([])
 
   const fetchMyActivities = async () => {
     try {
-      const res = await listActivities()
+      const res = await registerListActivity()
       if (!res || !res.success) return
       const list = Array.isArray(res.data) ? res.data : []
       const myList = list.filter((item) => item && item.registrationStatus === 1)
@@ -26,8 +28,9 @@ export default function MyActivity() {
 
   return (
     <View className='list-page'>
-      <View className='section-title'>我的报名活动</View>
+      {/* <View className='section-title'>我的报名活动</View> */}
 
+      {events.length === 0 && <NullPage text='暂无报名活动' />}
       <View className='event-list'>
         {events.map((e) => (
           <View key={e.id} className='event-card'>

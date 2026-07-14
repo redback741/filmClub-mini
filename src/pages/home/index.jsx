@@ -29,19 +29,12 @@ export default function Home() {
   return (
     <View className='home-page'>
       {/* 顶部导航 */}
-      <View className='nav-header'>
+      {/* <View className='nav-header'>
         <View className='nav-left'>
-          {/* <CitySelector 
-            value={currentCity} 
-            onChange={(city) => {
-              console.log('选择的城市:', city)
-              setCurrentCity(city)
-            }} 
-          /> */}
         </View>
         <Text className='nav-title'>近期电影</Text>
         <View className='nav-right'></View>
-      </View>
+      </View> */}
 
       {/* 电影列表 */}
       <View className='movie-list'>

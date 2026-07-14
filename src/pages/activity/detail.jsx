@@ -61,6 +61,11 @@ export default function Detail() {
         })
         // 刷新页面数据
         await fetchActivity()
+      } else {
+        Taro.showToast({
+          title: res.message || '报名失败',
+          icon: 'none'
+        })
       }
     } catch (e) {
       console.error(e)
