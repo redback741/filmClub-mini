@@ -55,21 +55,22 @@ export async function getActivityDetail(id) {
     method: 'GET',
     params: { id }
   })
-  if (tryDetail && (tryDetail.success || tryDetail.code === 200)) {
-    return tryDetail
-  }
+  return tryDetail
+  // if (tryDetail && (tryDetail.success || tryDetail.code === 200)) {
+  //   return tryDetail
+  // }
   // 回退方案：拉取列表并本地筛选
-  const listRes = await listActivities()
-  if (listRes && listRes.success && Array.isArray(listRes.data)) {
-    const item = listRes.data.find(a => String(a.id) === String(id))
-    return {
-      success: !!item,
-      data: item || null,
-      message: item ? '获取成功' : '未找到对应活动',
-      code: item ? 200 : 404
-    }
-  }
-  return listRes
+  // const listRes = await listActivities()
+  // if (listRes && listRes.success && Array.isArray(listRes.data)) {
+  //   const item = listRes.data.find(a => String(a.id) === String(id))
+  //   return {
+  //     success: !!item,
+  //     data: item || null,
+  //     message: item ? '获取成功' : '未找到对应活动',
+  //     code: item ? 200 : 404
+  //   }
+  // }
+  // return listRes
 }
 
 // 报名活动（query: id）

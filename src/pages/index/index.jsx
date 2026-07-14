@@ -1,5 +1,7 @@
 import Taro, { useLoad } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
+import iconActivityEntry from '../../assets/icons/icon-activity-entry.png'
+import iconMyActivities from '../../assets/icons/group.png'
 import './index.scss'
 
 export default function Index() {
@@ -24,7 +26,7 @@ export default function Index() {
     <View className='page-container'>
       {/* 头部标题 */}
       <View className='header'>
-        <View className='header-title'>观影团</View>
+        <View className='header-title'>娱乐生活日志</View>
         <View className='header-subtitle'>发现精彩电影活动</View>
       </View>
 
@@ -43,9 +45,9 @@ export default function Index() {
 
         <View 
           className='card card-large'
-          onClick={() => handleSwitchTab('/pages/mine/index')}
+          onClick={() => handleNavigate('/pages/myActivity/index')}
         >
-          <Text className='card-icon'>🎨</Text>
+          <Image className='card-image' src={iconActivityEntry} mode='aspectFit' />
           <Text className='card-title'>我的报名</Text>
           <Text className='card-desc'>查看我的报名活动</Text>
         </View>
@@ -56,20 +58,20 @@ export default function Index() {
             className='card card-small'
             onClick={() => handleSwitchTab('/pages/list/index')}
           >
-            <Text className='card-icon-small'>📋</Text>
+            <Image className='card-image' src={iconMyActivities} mode='aspectFit' />
             <Text className='card-title-small'>活动列表</Text>
-            <Text className='card-desc-small'>首映礼? 海报场?<br/>按需查找</Text>
+            <Text className='card-desc-small'>近期所有活动</Text>
           </View>
 
           {/* 卡片 3: 活动日历 */}
-          <View 
+          {/* <View 
             className='card card-small'
             onClick={() => handleNavigate('')}
           >
             <Text className='card-icon-small'>🗓️</Text>
             <Text className='card-title-small'>活动日历</Text>
             <Text className='card-desc'>可以看什么?</Text>
-          </View>
+          </View> */}
         </View>
 
       </View>

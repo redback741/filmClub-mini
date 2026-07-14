@@ -2,7 +2,7 @@
 
 .page-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #7F9BFF 0%, #835BF9 100%);
+  background: linear-gradient(180deg, #f0fdfa 0%, #f6f8f9 58%, #fff7ed 100%);
   padding: 100rpx 48rpx 20rpx;
   box-sizing: border-box;
   display: flex;
@@ -12,18 +12,19 @@
 .header {
   margin-bottom: 80rpx;
   text-align: center;
-  color: #ffffff;
+  color: #0f172a;
 
   &-title {
     font-size: 64rpx;
     font-weight: bold;
     margin-bottom: 24rpx;
     letter-spacing: 4rpx;
+    color: #0f766e;
   }
 
   &-subtitle {
     font-size: 28rpx;
-    opacity: 0.8;
+    color: #64748b;
     font-weight: 300;
     letter-spacing: 2rpx;
   }
@@ -38,8 +39,9 @@
 
 .card {
   background-color: #ffffff;
+  border: 2rpx solid rgba(20, 184, 166, 0.12);
   border-radius: 48rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14rpx 40rpx rgba(15, 118, 110, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,13 +85,13 @@
   &-title {
     font-size: 36rpx;
     font-weight: bold;
-    color: #333333;
+    color: #0f172a;
     margin-bottom: 8rpx;
 
     &-small {
       font-size: 32rpx;
       font-weight: bold;
-      color: #333333;
+      color: #0f172a;
       margin-bottom: 8rpx;
     }
   }
@@ -97,13 +99,49 @@
   // 描述文本样式
   &-desc {
     font-size: 24rpx;
-    color: #999999;
+    color: #64748b;
 
     &-small {
       font-size: 20rpx;
-      color: #999999;
+      color: #64748b;
       text-align: center;
       line-height: 1.4;
     }
   }
+}
+
+.card-image {
+  width: 88rpx;
+  height: 88rpx;
+  margin-bottom: 32rpx;
+}
+
+.card-list > .card:nth-child(1) {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+  border-color: rgba(20, 184, 166, 0.22);
+  box-shadow: 0 16rpx 44rpx rgba(20, 184, 166, 0.12);
+}
+
+.card-list > .card:nth-child(1) .card-title {
+  color: #0d9488;
+}
+
+.card-list > .card:nth-child(2) {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+  border-color: rgba(249, 115, 22, 0.2);
+  box-shadow: 0 16rpx 44rpx rgba(249, 115, 22, 0.12);
+}
+
+.card-list > .card:nth-child(2) .card-title {
+  color: #ea580c;
+}
+
+.card-row .card-small {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+  border-color: rgba(59, 130, 246, 0.16);
+  box-shadow: 0 12rpx 36rpx rgba(59, 130, 246, 0.1);
+}
+
+.card-row .card-small .card-title-small {
+  color: #0f766e;
 }

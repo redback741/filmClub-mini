@@ -4,7 +4,7 @@ import { userStorage } from './storage'
 // 响应数据拦截器
 const responseInterceptor = (response) => {
   const { statusCode, data } = response
-  
+  console.log('API响应:', response)
   // HTTP状态码检查
   if (statusCode >= 200 && statusCode < 300) {
     // 业务状态码检查
@@ -47,7 +47,7 @@ const responseInterceptor = (response) => {
     return {
       success: false,
       data: null,
-      message: `网络错误 (${statusCode})`,
+      message: data.data || `网络错误 (${statusCode})`,
       code: statusCode
     }
   }

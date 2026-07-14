@@ -20,6 +20,9 @@ export default function CitySelector({ value = '北京', onChange }) {
     { name: '苏州', value: 'Suzhou' }
   ]
 
+  const selectedCity = cities.find((c) => c.value === value || c.name === value)
+  const displayName = selectedCity ? selectedCity.name : value
+
   const handleToggle = (e) => {
     e.stopPropagation()
     setVisible(!visible)
@@ -44,7 +47,7 @@ export default function CitySelector({ value = '北京', onChange }) {
     <View className='city-selector'>
       {/* 触发区域 */}
       <View className='selector-trigger' onClick={handleToggle}>
-        <Text className='current-city'>{value}</Text>
+        <Text className='current-city'>{displayName}</Text>
         <Text className={`arrow ${visible ? 'up' : ''}`}>▼</Text>
       </View>
 
@@ -60,7 +63,7 @@ export default function CitySelector({ value = '北京', onChange }) {
               {cities.map(city => (
                 <View 
                   key={city.value} 
-                  className={`city-item ${value === city.name ? 'active' : ''}`}
+                  className={`city-item ${value === city.value ? 'active' : ''}`}
                   onClick={(e) => handleSelect(city, e)}
                 >
                   <Text>{city.name}</Text>

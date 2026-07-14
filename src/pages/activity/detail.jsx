@@ -18,8 +18,19 @@ export default function Detail() {
   const fetchActivity = async () => {
     try {
       const res = await getActivityDetail(id)
+      console.log('活动详情', res)
       if (res && res.success) {
         setActivity(res.data || {})
+      } else if (res.code === 401) {
+        Taro.showToast({
+          title: res.message || '活动不存在',
+          icon: 'none'
+        })
+      } else {
+        Taro.showToast({
+          title: '获取活动详情失败',
+          icon: 'none'
+        })
       }
     } catch (e) {
       console.error(e)

@@ -5,12 +5,15 @@ import CitySelector from '../../components/CitySelector'
 import CalendarSelector from '../../components/CalendarSelector'
 import Taro, { useLoad } from '@tarojs/taro'
 import { listActivities } from '@/api/activity'
+import { formatTimestamp } from '@/utils/date'
 
 
 export default function List() {
-  const [city, setCity] = useState('成都')
+  const [city, setCity] = useState('Beijing')
   const [currentDate, setCurrentDate] = useState(new Date())
   const [events, setEvents] = useState([])
+
+  const hallTypeMap = ['普通厅','IMAX','杜比','CINITY']
 
   const fetchEvents = async (nextCity, nextDate) => {
     try {
@@ -64,14 +67,13 @@ export default function List() {
               <Text className='event-title'>{e.title || e.name || e.movieName}</Text>
               <Text className='event-cinema'>{e.cinema || e.address}</Text>
               <View className='tags'>
-                {(Array.isArray(e.tags) ? e.tags : []).map((t) => (
-                  <Text key={t} className={`tag ${t==='IMAX激光'?'blue':''} ${t==='IMAX海报'?'orange':''}`}>{t}</Text>
-                ))}
+                <Text className='tag'>{hallTypeMap[e.hallType] || '-'}</Text>
               </View>
             </View>
             <View className='event-meta'>
               <Text className='group'>{e.group || e.recruiterName}</Text>
-              <Text className='datetime'>{e.datetime || e.startTime}</Text>
+
+              <Text className='datetime'>{ e.startTime ? formatTimestamp(e.startTime, 'yyyy年mm月dd日 hh:MM:ss') : '-' }</Text>
               <View className='btn-detail' onClick={() => Taro.navigateTo({ url: '/pages/activity/detail?id=' + e.id })}>
                 <Text>查看详情</Text>
               </View>

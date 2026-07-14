@@ -4,6 +4,8 @@ import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { listActivitiesByMovie } from '@/api/activity'
 import { formatTimestamp } from '@/utils/date'
+import NullPage from '@/components/NullPage/index'
+import './index.scss'
 
 export default function ActivityByMovie() {
   const { movieId } = Taro.getCurrentInstance().router?.params || {}
@@ -29,7 +31,8 @@ export default function ActivityByMovie() {
     <View className='list-page'>
       <View className='section-title'>活动列表</View>
 
-      <View className='event-list'>
+      { events.length > 0 && 
+        <View  className='event-list'>
         {events.map((e) => (
           <View key={e.id} className='event-card'>
             <View className='event-main'>
@@ -50,7 +53,9 @@ export default function ActivityByMovie() {
             </View>
           </View>
         ))}
-      </View>
+        </View>
+      }
+      {events.length === 0 && <NullPage text='暂无相关活动' />}
     </View>
   )
 }
